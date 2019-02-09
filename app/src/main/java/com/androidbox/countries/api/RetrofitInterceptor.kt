@@ -2,7 +2,6 @@ package com.androidbox.countries.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import javax.xml.datatype.DatatypeConstants.MINUTES
 import okhttp3.CacheControl
 import java.util.concurrent.TimeUnit
 
