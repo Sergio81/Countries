@@ -3,7 +3,6 @@ package com.androidbox.countries.module
 import com.androidbox.countries.BuildConfig
 import com.androidbox.countries.api.RetrofitInterceptor
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
