@@ -13,7 +13,7 @@ class CountriesAPIUnitTest {
             CountriesAPI.create()
         }
 
-        countriesAPI.SearchCountry("United States of America").subscribe(testObserver)
+        countriesAPI.searchCountry("United States of America").subscribe(testObserver)
 
         testObserver.assertComplete()
         testObserver.assertNoErrors()

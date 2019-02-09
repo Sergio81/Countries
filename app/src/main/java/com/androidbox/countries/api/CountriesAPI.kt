@@ -12,7 +12,7 @@ import retrofit2.http.Path
 
 interface CountriesAPI {
     @GET("name/{name}")
-    fun SearchCountry(@Path("name")query:String):Observable<List<Country>>
+    fun searchCountry(@Path("name")query:String):Observable<List<Country>>
 
     companion object {
         fun create():CountriesAPI{

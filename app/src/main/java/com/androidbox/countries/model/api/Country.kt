@@ -42,7 +42,7 @@ class Country {
     var demonym: String? = null
     @SerializedName("area")
     @Expose
-    var area: Int? = null
+    var area: Float? = null
     @SerializedName("gini")
     @Expose
     var gini: Float? = null
