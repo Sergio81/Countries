@@ -45,7 +45,7 @@ class Country {
     var area: Int? = null
     @SerializedName("gini")
     @Expose
-    var gini: Int? = null
+    var gini: Float? = null
     @SerializedName("timezones")
     @Expose
     var timezones: List<String>? = null
