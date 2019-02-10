@@ -9,7 +9,6 @@ import com.androidbox.countries.R
 import com.androidbox.countries.adapter.CountriesAdapter
 import com.androidbox.countries.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import android.view.Menu
 import androidx.lifecycle.Observer
 
 
@@ -19,10 +18,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val countriesAdapter = CountriesAdapter(this)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        //viewModel = DaggerAppComponent.inject()
+
+        val countriesAdapter = CountriesAdapter(this, viewModel)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = countriesAdapter
 
