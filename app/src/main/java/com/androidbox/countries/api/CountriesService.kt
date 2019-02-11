@@ -1,12 +1,11 @@
 package com.androidbox.countries.api
 
-import androidx.lifecycle.LiveData
 import com.androidbox.countries.model.api.Country
-import io.reactivex.Observable
+import retrofit2.Call
 import javax.inject.Inject
 
 class CountriesService @Inject constructor(private val countriesAPI: CountriesAPI) {
-    fun searchCountry(query:String) : Observable<List<Country>> {
+    fun searchCountry(query:String) : Call<List<Country>> {
         return countriesAPI.searchCountry(query)
     }
 }

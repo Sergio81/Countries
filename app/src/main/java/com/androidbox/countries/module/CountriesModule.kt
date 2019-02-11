@@ -21,10 +21,4 @@ class CountriesModule {
     internal fun provideCountriesService(countriesAPI: CountriesAPI) : CountriesService{
         return CountriesService(countriesAPI)
     }
-//
-//    @Provides
-//    @Singleton
-//    internal  fun provideMainViewModel(countriesService: CountriesService): MainViewModel{
-//        return MainViewModel(countriesService)
-//    }
 }

@@ -10,11 +10,10 @@ import com.ahmadrosid.svgloader.SvgLoader
 import com.androidbox.countries.view.DetailsActivity
 import com.androidbox.countries.R
 import com.androidbox.countries.model.api.Country
-import com.androidbox.countries.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.item_country.view.*
 
 // TODO - https://android.jlelse.eu/how-to-bind-a-list-of-items-to-a-recyclerview-with-android-data-binding-1bd08b4796b4
-class CountriesAdapter(private val context: Activity, private val viewModel: MainViewModel) : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
+class CountriesAdapter(private val context: Activity) : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
     var countriesList = emptyList<Country>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +25,7 @@ class CountriesAdapter(private val context: Activity, private val viewModel: Mai
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(countriesList[position], context, position, viewModel)
+        holder.bind(countriesList[position], context, position)
     }
 
     fun setData(items: List<Country>){
@@ -35,7 +34,7 @@ class CountriesAdapter(private val context: Activity, private val viewModel: Mai
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(country:Country, context: Activity,position:Int, viewModel: MainViewModel){
+        fun bind(country:Country, context: Activity,position:Int){
             itemView.txtName.text = country.name
             SvgLoader.pluck()
                 .with(context)
@@ -45,7 +44,6 @@ class CountriesAdapter(private val context: Activity, private val viewModel: Mai
                 var intent = Intent(context, DetailsActivity::class.java)
 
                 intent.putExtra("SelectedCountry", position)
-                viewModel.selectCountry(position)
                 context.startActivity(intent)
             }
         }
