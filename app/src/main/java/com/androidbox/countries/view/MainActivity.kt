@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.androidbox.countries.app.CountriesApp
 import com.androidbox.countries.component.DaggerAppComponent
+import com.androidbox.countries.module.RoomModule
 import com.androidbox.countries.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
@@ -26,7 +27,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerAppComponent.create().inject(this)
+        DaggerAppComponent
+            .builder()
+            .roomModule(RoomModule(application))
+            .build()
+            .inject(this)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         val countriesAdapter = CountriesAdapter()
