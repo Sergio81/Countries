@@ -34,10 +34,5 @@ class DetailsActivity : AppCompatActivity() {
 
         val country = viewModel.getCountry(intent.getIntExtra("SelectedCountry", -1))
         binding.viewModel = country
-
-        SvgLoader.pluck()
-            .with(this)
-            .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
-            .load(country.flag, imageFlag)
     }
 }
