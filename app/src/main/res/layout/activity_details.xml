@@ -20,7 +20,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="@string/flag"
-                android:src="@{viewModel.flag}"
+                android:svg_src="@{viewModel.flag}"
                 app:layout_constraintBottom_toTopOf="@+id/scrollView2"/>
         <ScrollView
                 android:layout_width="match_parent"

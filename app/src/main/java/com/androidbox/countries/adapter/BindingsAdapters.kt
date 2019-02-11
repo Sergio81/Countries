@@ -20,10 +20,12 @@ private fun getActivity(view: View): Activity? {
     return null
 }
 
-@BindingAdapter("android:src")
+@BindingAdapter("android:svg_src")
 fun setImageViewResource(imageView: ImageView, urlResource: String) {
     SvgLoader.pluck()
         .with(getActivity(imageView))
-        .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
+        .setPlaceHolder(
+            R.drawable.ic_image_placeholder_black_24dp,
+            R.drawable.ic_image_placeholder_black_24dp)
         .load(urlResource, imageView)
 }

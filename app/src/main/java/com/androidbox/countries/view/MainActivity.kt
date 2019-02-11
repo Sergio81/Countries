@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         DaggerAppComponent.create().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
-        val countriesAdapter = CountriesAdapter(this)
+        val countriesAdapter = CountriesAdapter()
         val owner = this
 
         recyclerView.layoutManager = LinearLayoutManager(this)

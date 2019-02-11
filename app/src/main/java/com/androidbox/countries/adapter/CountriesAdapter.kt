@@ -1,58 +1,45 @@
 package com.androidbox.countries.adapter
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ahmadrosid.svgloader.SvgLoader
 import com.androidbox.countries.view.DetailsActivity
-import com.androidbox.countries.R
+import com.androidbox.countries.databinding.ItemCountryBinding
 import com.androidbox.countries.model.api.Country
 import kotlinx.android.synthetic.main.item_country.view.*
 
-// TODO - https://android.jlelse.eu/how-to-bind-a-list-of-items-to-a-recyclerview-with-android-data-binding-1bd08b4796b4
-class CountriesAdapter(private val context: Activity) : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
-    var countriesList = emptyList<Country>()
+class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
+    private var countriesList = emptyList<Country>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_country, parent, false))
+        val binding = ItemCountryBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount() = countriesList.size
 
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(countriesList[position], context)
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(countriesList[position])
 
     fun setData(items: List<Country>){
         countriesList = items
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private lateinit var context: Activity
-
-        fun bind(country:Country, context: Activity){
-            this.context = context
-            itemView.txtName.text = country.name
-
-            SvgLoader.pluck()
-                .with(context)
-                .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
-                .load(country.flag, itemView.imageView)
-
+    class ViewHolder(private val binding: ItemCountryBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        fun bind(country:Country){
+            binding.item = country
+            binding.executePendingBindings()
             itemView.cardView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View?) {
-            var intent = Intent(context, DetailsActivity::class.java)
+        override fun onClick(v: View) {
+            val intent = Intent(v.context, DetailsActivity::class.java)
 
             intent.putExtra("SelectedCountry", adapterPosition)
-            context.startActivity(intent)
+            v.context.startActivity(intent)
         }
     }
 }
