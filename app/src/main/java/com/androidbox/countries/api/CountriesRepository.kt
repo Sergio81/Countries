@@ -13,8 +13,12 @@ import javax.inject.Singleton
 @Singleton
 class CountriesRepository @Inject constructor(private val countriesService: CountriesService){
 
+    companion object {
+        private val data by lazy { MutableLiveData<List<Country>>() }
+    }
+
     fun getCountriesList(query: String): LiveData<List<Country>> {
-        val data = MutableLiveData<List<Country>>()
+
         countriesService.searchCountry(query).enqueue(object : Callback<List<Country>>{
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
                 data.value = response.body()
@@ -27,4 +31,6 @@ class CountriesRepository @Inject constructor(private val countriesService: Coun
 
         return data
     }
+
+    fun getCountry(index:Int) = data.value!![index]
 }

@@ -25,7 +25,7 @@ class CountriesAdapter(private val context: Activity) : RecyclerView.Adapter<Cou
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(countriesList[position], context, position)
+        holder.bind(countriesList[position], context)
     }
 
     fun setData(items: List<Country>){
@@ -33,19 +33,26 @@ class CountriesAdapter(private val context: Activity) : RecyclerView.Adapter<Cou
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(country:Country, context: Activity,position:Int){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        private lateinit var context: Activity
+
+        fun bind(country:Country, context: Activity){
+            this.context = context
             itemView.txtName.text = country.name
+
             SvgLoader.pluck()
                 .with(context)
                 .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
                 .load(country.flag, itemView.imageView)
-            itemView.cardView.setOnClickListener{
-                var intent = Intent(context, DetailsActivity::class.java)
 
-                intent.putExtra("SelectedCountry", position)
-                context.startActivity(intent)
-            }
+            itemView.cardView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            var intent = Intent(context, DetailsActivity::class.java)
+
+            intent.putExtra("SelectedCountry", adapterPosition)
+            context.startActivity(intent)
         }
     }
 }

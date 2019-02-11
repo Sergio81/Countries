@@ -20,7 +20,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
     private lateinit var viewModel : MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,13 +41,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 viewModel.searchCountry(newText)
-                    .observe(owner, Observer { r -> countriesAdapter.setData(r) })
+                    .observe(owner, Observer { r -> if(r != null) countriesAdapter.setData(r) })
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.searchCountry(query)
-                    .observe(owner, Observer { r -> countriesAdapter.setData(r) })
+                    .observe(owner, Observer { r -> if(r != null) countriesAdapter.setData(r) })
                 return false
             }
 

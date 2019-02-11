@@ -3,6 +3,7 @@ package com.androidbox.countries.component
 import com.androidbox.countries.module.AppModule
 import com.androidbox.countries.module.CountriesModule
 import com.androidbox.countries.module.NetworkModule
+import com.androidbox.countries.view.DetailsActivity
 import com.androidbox.countries.view.MainActivity
 import com.androidbox.countries.view.MainActivityModule
 import com.androidbox.countries.viewmodel.MainViewModel
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 interface AppComponent {
     //fun inject(application: CountriesApp)
     fun inject(mainActivity: MainActivity)
+    fun inject(detailsActivity: DetailsActivity)
     fun inject(mainViewModel: MainViewModel)
 }
 
