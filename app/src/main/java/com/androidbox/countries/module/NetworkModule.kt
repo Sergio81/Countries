@@ -1,6 +1,9 @@
 package com.androidbox.countries.module
 
 import com.androidbox.countries.BuildConfig
+import com.androidbox.countries.api.CountriesAPI
+import com.androidbox.countries.api.CountriesRepository
+import com.androidbox.countries.api.CountriesService
 import com.androidbox.countries.api.RetrofitInterceptor
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -34,5 +37,12 @@ class NetworkModule {
             .addConverterFactory(factory)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+    }
+
+
+    @Provides
+    @Singleton
+    internal fun provideRepository(countriesService: CountriesService) : CountriesRepository{
+        return CountriesRepository(countriesService)
     }
 }

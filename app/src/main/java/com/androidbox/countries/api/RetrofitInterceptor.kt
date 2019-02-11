@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit
  * Interceptor for Retrofit to add cache to header
  */
 class RetrofitInterceptor : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         val cacheControl = CacheControl.Builder()
