@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="viewModel" type="com.androidbox.countries.model.api.Country"/>
+        <variable name="item" type="com.androidbox.countries.model.api.Country"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="@string/flag"
-                android:svg_src="@{viewModel.flag}"
+                android:svg_src="@{item.flag}"
                 app:layout_constraintBottom_toTopOf="@+id/scrollView2"/>
         <ScrollView
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@{viewModel.name + ` (` + viewModel.nativeName + `)`}"
+                        android:text="@{item.name + ` (` + item.nativeName + `)`}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -50,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@{viewModel.capital}"
+                        android:text="@{item.capital}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -61,7 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:text="@{viewModel.inlineCallingCodes}"
+                        android:text="@{item.inlineCallingCodes}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -72,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@{viewModel.region}"
+                        android:text="@{item.region}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@{viewModel.subregion}"
+                        android:text="@{item.subregion}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:text="@{viewModel.inlineTimeZones}"
+                        android:text="@{item.inlineTimeZones}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -105,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:text="@{viewModel.inlineCurrencies}"
+                        android:text="@{item.inlineCurrencies}"
                         android:focusable="false"
                         android:ems="10"/>
                 <TextView
@@ -116,11 +116,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:text="@{viewModel.inlineLanguages}"
+                        android:text="@{item.inlineLanguages}"
                         android:focusable="false"
                         android:ems="10"/>
             </LinearLayout>
         </ScrollView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_check_black_24dp"
+                android:layout_margin="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintHorizontal_bias="1.0"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

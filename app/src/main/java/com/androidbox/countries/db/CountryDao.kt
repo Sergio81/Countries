@@ -18,5 +18,8 @@ interface CountryDao {
     fun getCountry(countryName: String): LiveData<Country>
 
     @Query("SELECT * FROM country")
-    fun getAllCountries() : LiveData<List<Country>>
+    fun getAllCountries() : List<Country>
+
+    @Insert
+    fun insertCountry(vararg country: Country)
 }

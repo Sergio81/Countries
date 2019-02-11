@@ -12,7 +12,7 @@ import com.androidbox.countries.db.CountryDatabase
 @Module
 class RoomModule(mApplication: Application) {
     private var demoDatabase: CountryDatabase =
-        Room.databaseBuilder(mApplication, CountryDatabase::class.java, "country-db").build()
+        Room.databaseBuilder(mApplication, CountryDatabase::class.java, "country2-db").build()
 
     @Singleton
     @Provides

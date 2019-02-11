@@ -6,39 +6,50 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity
-class Country
- {
-     @PrimaryKey
-     var name: String = ""
+class Country {
+    @PrimaryKey
+    var name: String = ""
 
-     var nativeName: String? = null
-     @Ignore
-     var callingCodes: List<String>? = null
-     var capital: String? = null
-     var region: String? = null
-     var subregion: String? = null
-     @Ignore
-     var timezones: List<String>? = null
-     @Ignore
-     var currencies: List<Currency>? = null
-     @Ignore
-     var languages: List<Language>? = null
-     var flag: String? = null
-     var isSaved: Boolean = false
+    var nativeName: String? = null
+    @Ignore
+    var callingCodes: List<String>? = null
+    var capital: String = ""
+    var region: String = ""
+    var subregion: String = ""
+    @Ignore
+    var timezones: List<String>? = null
+    @Ignore
+    var currencies: List<Currency>? = null
+    @Ignore
+    var languages: List<Language>? = null
+    var flag: String = ""
+    var isSaved: Boolean = false
     var inlineCallingCodes: String = ""
         get() {
-            return callingCodes!!.joinToString("\n")
+            return if (field == "")
+                callingCodes!!.joinToString("\n")
+            else
+                field
         }
     var inlineTimeZones: String = ""
         get() {
-            return timezones!!.joinToString("\n")
+            return if (field == "")
+                timezones!!.joinToString("\n")
+            else
+                field
         }
     var inlineCurrencies: String = ""
         get() {
-            return currencies!!.joinToString("\n") { "${it.name} (${it.code})" }
+            return if (field == "")
+                currencies!!.joinToString("\n") { "${it.name} (${it.code})" }
+            else
+                field
         }
     var inlineLanguages: String = ""
         get() {
-            return languages!!.joinToString("\n") { "${it.name} (${it.nativeName})" }
+            return if (field == "")
+                languages!!.joinToString("\n") { "${it.name} (${it.nativeName})" }
+            else
+                field
         }
 }
