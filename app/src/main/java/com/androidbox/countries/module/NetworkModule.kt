@@ -5,8 +5,10 @@ import com.androidbox.countries.api.CountriesAPI
 import com.androidbox.countries.api.CountriesRepository
 import com.androidbox.countries.api.CountriesService
 import com.androidbox.countries.api.RetrofitInterceptor
+import com.androidbox.countries.db.CountryDao
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -39,10 +41,9 @@ class NetworkModule {
             .build()
     }
 
-
     @Provides
     @Singleton
-    internal fun provideRepository(countriesService: CountriesService) : CountriesRepository{
-        return CountriesRepository(countriesService)
+    internal fun provideRepository(countriesService: CountriesService, countryDao: CountryDao) : CountriesRepository{
+        return CountriesRepository(countriesService, countryDao)
     }
 }
