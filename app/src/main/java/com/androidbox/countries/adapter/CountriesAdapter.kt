@@ -28,13 +28,20 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    /***
+     * ViewHolder with data binding
+     */
     class ViewHolder(private val binding: ItemCountryBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         fun bind(country:Country){
             binding.item = country
             binding.executePendingBindings()
+
             itemView.cardView.setOnClickListener(this)
         }
 
+        /***
+         * Open the Details of the Country after click on the CardView
+         */
         override fun onClick(v: View) {
             val intent = Intent(v.context, DetailsActivity::class.java)
 

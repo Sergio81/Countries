@@ -1,12 +1,11 @@
 package com.androidbox.countries.model.api
 
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity
-class Country {
+open class Country {
     @PrimaryKey
     var name: String = ""
 
