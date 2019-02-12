@@ -1,33 +1,32 @@
 package com.androidbox.countries.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidbox.countries.api.CountriesRepository
 import com.androidbox.countries.model.api.Country
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MainViewModel @Inject constructor(private val countriesRepository: CountriesRepository) : ViewModel() {
-    var status =  MutableLiveData<String>()
+    /***
+     * Get the list with the latest search
+     */
+    fun countries() = countriesRepository.countries
 
-    fun countries()
-        = CountriesRepository.countries
+    /***
+     * Start async search, if the query is empty,
+     * it will search in database
+     */
+    fun searchCountry(query: String) = countriesRepository.getCountriesList(query)
 
-    fun searchCountry(query:String)
-            = countriesRepository.getCountriesList(query)
+    /***
+     * get the country details from the latest search
+     */
+    fun getCountry(index: Int) = countriesRepository.getCountry(index)
 
-    fun getCountry(index:Int)
-            = countriesRepository.getCountry(index)
-
-    fun saveCountry(item:Country){
-        doAsync {
-            countriesRepository.saveCountry(item)
-            uiThread {
-                status.value = "Country Saved"
-            }
-        }
-    }
+    /***
+     * Save country to data base
+     */
+    fun saveCountry(item: Country)
+        = countriesRepository.saveCountry(item)
 }

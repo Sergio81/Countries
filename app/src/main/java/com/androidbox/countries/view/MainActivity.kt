@@ -10,6 +10,8 @@ import com.androidbox.countries.adapter.CountriesAdapter
 import com.androidbox.countries.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
+import com.androidbox.countries.app.CountriesApp
 import com.androidbox.countries.component.DaggerAppComponent
 import com.androidbox.countries.module.RoomModule
 import com.androidbox.countries.viewmodel.ViewModelFactory
@@ -25,39 +27,45 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerAppComponent
-            .builder()
-            .roomModule(RoomModule(application))
-            .build()
-            .inject(this)
+        // I inject the dependencies with application scope to share the singletons
+        CountriesApp.appComponent.inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         val countriesAdapter = CountriesAdapter()
-        //val owner = this
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = countriesAdapter
 
+        //Observe changes on countries list
         viewModel.countries().observe(this, Observer {
                 r -> if (r != null) countriesAdapter.setData(r)
         })
 
+        // Update RecyclerView with the data saved in database
         viewModel.searchCountry("")
 
-        searchView.queryHint = "Type something..."
+        initSearchView()
+    }
+
+    private fun initSearchView() {
+        searchView.queryHint = "Search by country name"
+        searchView.setIconifiedByDefault(true)
+        searchView.isFocusable = true
+        searchView.isIconified = false
+        searchView.clearFocus()
+        searchView.requestFocusFromTouch()
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                    viewModel.searchCountry(newText)
-                        //.observe(owner, Observer { r -> if (r != null) countriesAdapter.setData(r) })
+                viewModel.searchCountry(newText)
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                    viewModel.searchCountry(query)
-                        //.observe(owner, Observer { r -> if (r != null) countriesAdapter.setData(r) })
+                viewModel.searchCountry(query)
                 return false
             }
 

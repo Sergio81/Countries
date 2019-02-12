@@ -8,7 +8,9 @@ import android.content.ContextWrapper
 import android.app.Activity
 import android.view.View
 
-
+/***
+ * Helper function to get the activity from the view
+ */
 private fun getActivity(view: View): Activity? {
     var context = view.context
     while (context is ContextWrapper) {
@@ -20,6 +22,9 @@ private fun getActivity(view: View): Activity? {
     return null
 }
 
+/***
+ *  Get SVG from internet and set it to the view
+ */
 @BindingAdapter("android:svg_src")
 fun setImageViewResource(imageView: ImageView, urlResource: String) {
     SvgLoader.pluck()

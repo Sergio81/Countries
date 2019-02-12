@@ -1,10 +1,10 @@
 package com.androidbox.countries.api
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.androidbox.countries.db.CountryDao
 import com.androidbox.countries.model.api.Country
+import io.reactivex.Completable
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import retrofit2.Callback
@@ -14,16 +14,14 @@ import retrofit2.Response
 import javax.inject.Singleton
 
 @Singleton
-class CountriesRepository @Inject constructor(
+open class CountriesRepository @Inject constructor(
     private val countriesService: CountriesService,
     private val countryDao: CountryDao
-){
-    companion object {
-        val countries by lazy { MutableLiveData<List<Country>>() }
-    }
+) {
+    val countries = MutableLiveData<List<Country>>()
 
-    fun getCountriesList(query: String) {
-        if(query != "") {
+    open fun getCountriesList(query: String) {
+        if (query != "") {
             countriesService.searchCountry(query).enqueue(object : Callback<List<Country>> {
                 override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
                     countries.value = response.body()
@@ -33,28 +31,19 @@ class CountriesRepository @Inject constructor(
                     Log.d("CountriesRepository", t.message)
                 }
             })
-        }else{
-            doAsync{
-                val d :List<Country> = countryDao.getAllCountries()
-                if(d.isNotEmpty())
+        } else {
+            doAsync {
+                val d: List<Country> = countryDao.getAllCountries()
+                if (d.isNotEmpty())
                     Log.d("CountriesRepository", d.size.toString())
                 uiThread {
                     countries.value = d
                 }
             }
         }
-
-        //return Countries
     }
 
-    fun getCountry(index:Int)
-            = countries.value!![index]
+    open fun getCountry(index: Int) = countries.value!![index]
 
-    fun saveCountry(item:Country){
-        countryDao.insertCountry(item)
-    }
-
-    fun getOfflineCountry(name:String) : LiveData<Country>{
-        return countryDao.getCountry(name)
-    }
+    open fun saveCountry(item: Country) = Completable.fromAction { countryDao.insertCountry(item) }!!
 }
