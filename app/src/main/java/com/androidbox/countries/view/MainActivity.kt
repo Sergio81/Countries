@@ -28,22 +28,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // I inject the dependencies with application scope to share the singletons
-        CountriesApp.appComponent.inject(this)
+        (application as CountriesApp).appComponent.inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         val countriesAdapter = CountriesAdapter()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = countriesAdapter
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = countriesAdapter
+        }
 
-        //Observe changes on countries list
-        viewModel.countries().observe(this, Observer {
-                r -> if (r != null) countriesAdapter.setData(r)
-        })
-
-        // Update RecyclerView with the data saved in database
-        viewModel.searchCountry("")
+        viewModel.apply {
+            //Observe changes on countries list
+            countries().observe(this@MainActivity, Observer {
+                    r -> if (r != null) countriesAdapter.setData(r)
+            })
+            // Update RecyclerView with the data saved in database
+            searchCountry("")
+        }
 
         initSearchView()
     }

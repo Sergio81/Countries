@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.androidbox.countries.model.api.Country
 import dagger.Module
+import io.reactivex.Observable
 
 @Module
 @Dao
@@ -18,7 +19,7 @@ interface CountryDao {
     fun getCountry(countryName: String): LiveData<Country>
 
     @Query("SELECT * FROM country")
-    fun getAllCountries() : List<Country>
+    fun getAllCountries() : Observable<List<Country>>
 
     @Insert
     fun insertCountry(vararg country: Country)

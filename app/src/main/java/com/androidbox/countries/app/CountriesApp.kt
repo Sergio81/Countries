@@ -6,13 +6,8 @@ import com.androidbox.countries.component.DaggerAppComponent
 import com.androidbox.countries.module.RoomModule
 
 open class CountriesApp : Application() {
-    companion object {
-        lateinit var appComponent: AppComponent
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        appComponent = DaggerAppComponent
+    val appComponent by lazy {
+        DaggerAppComponent
             .builder()
             .roomModule(RoomModule(this))
             .build()

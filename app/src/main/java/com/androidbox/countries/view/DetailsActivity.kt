@@ -35,13 +35,14 @@ class DetailsActivity : AppCompatActivity() {
         val binding: ActivityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
 
         // I inject the dependencies with application scope to share the singletons
-        CountriesApp.appComponent.inject(this)
+        (application as CountriesApp).appComponent.inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         binding.lifecycleOwner = this
 
         // Get selected Country
-        val country = viewModel.getCountry(intent.getIntExtra("SelectedCountry", -1))
+        //val country = viewModel.getCountry(intent.getIntExtra("SelectedCountry", -1))
+        val country = viewModel.countries().value!![intent.getIntExtra("SelectedCountry", -1)]
         binding.item = country
 
         // OnClick for save button
