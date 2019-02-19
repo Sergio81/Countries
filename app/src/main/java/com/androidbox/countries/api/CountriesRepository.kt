@@ -1,5 +1,6 @@
 package com.androidbox.countries.api
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.androidbox.countries.db.CountryDao
 import com.androidbox.countries.model.api.Country
@@ -16,16 +17,17 @@ open class CountriesRepository @Inject constructor(
 ) {
     val countries = MutableLiveData<List<Country>>()
 
-    open fun getCountriesList(query: String) {
+    @SuppressLint("CheckResult")
+    open fun updateCountriesList(query: String) {
         if (query != "") {
-            var tmp = countriesService.searchCountry(query)
+           countriesService.searchCountry(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     countries.value = it
                 }
         } else {
-            var tmp = countryDao.getAllCountries()
+            countryDao.getAllCountries()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

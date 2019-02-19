@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(private val countriesRepository: Countri
      * Start async search, if the query is empty,
      * it will search in database
      */
-    fun searchCountry(query: String) = countriesRepository.getCountriesList(query)
+    fun searchCountry(query: String) = countriesRepository.updateCountriesList(query)
 
     /***
      * get the country details from the latest search
